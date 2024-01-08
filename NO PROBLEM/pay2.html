@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Razorpay Payment Page</title>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+  <h2>Razorpay Payment Page</h2>
+  <form action="process_payment.php" method="POST">
+    <input type="text" name="amount" placeholder="Amount" required><br><br>
+    <input type="text" name="name" placeholder="Name" required><br><br>
+    <input type="email" name="email" placeholder="Email" required><br><br>
+    <button type="submit">Pay Now</button>
+  </form>
+
+  <script>
+    function initRazorpayCheckout(paymentId) {
+      var options = {
+        key: 'YOUR_API_KEY', // Replace with your actual API key
+        amount: document.querySelector('input[name="amount"]').value * 100,
+        currency: 'INR',
+        name: 'Your Company Name',
+        description: 'Payment Description',
+        order_id: paymentId,
+        handler: function(response) {
+          console.log(response);
+          // You can redirect to a success/failure page based on the response
+        }
+      };
+
+      var rzp = new Razorpay(options);
+      rzp.open();
+    }
+  </script>
+</body>
+</html>
